@@ -263,7 +263,17 @@ if (SUITESPARSE)
   # built with SuiteSparse support.
 
   # Check for SuiteSparse and dependencies.
-  find_package(SuiteSparse)
+  IF(MSVC)
+    FIND_PACKAGE(SuiteSparse NO_MODULE)
+    #include(${USE_SuiteSparse})
+    
+    # Add upper-case variables to match ones used on Linux systems
+    set(SUITESPARSE_FOUND ${SuiteSparse_FOUND})
+    set(SUITESPARSE_LIBRARIES ${SuiteSparse_LIBRARIES})
+    set(SUITESPARSE_INCLUDE_DIRS ${SuiteSparse_INCLUDE_DIRS})
+  ELSE()
+    FIND_PACKAGE(SuiteSparse)
+  ENDIF()
   if (SUITESPARSE_FOUND)
     # On Ubuntu the system install of SuiteSparse (v3.4.0) up to at least
     # Ubuntu 13.10 cannot be used to link shared libraries.
