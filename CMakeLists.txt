@@ -263,7 +263,8 @@ if (SUITESPARSE)
   # built with SuiteSparse support.
 
   # Check for SuiteSparse and dependencies.
-  IF(MSVC)
+set(SuiteSparse_USE_LAPACK_BLAS ON)  
+IF(MSVC)
     FIND_PACKAGE(SuiteSparse NO_MODULE)
     #include(${USE_SuiteSparse})
     
